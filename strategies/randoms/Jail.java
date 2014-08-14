@@ -22,46 +22,54 @@ public class Jail implements Strategy{
 
     @Override
     public boolean activate() {
-        jailer = Npcs.getNearest(201);
-        return jailer.length > 0 && jailer[0] != null;
+        try {
+            jailer = Npcs.getNearest(201);
+            return jailer.length > 0 && jailer[0] != null;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
     public void execute() {
-        SceneObject rock = SceneObjects.getClosest(2093,2092);
-        if(Inventory.getCount(1266) > 0){
-            if(!Inventory.isFull()){
-                if(rock != null){
-                    if(Players.getMyPlayer().getAnimation() == -1){
-                        rock.interact(0);
-                        Time.sleep(new SleepCondition() {
-                            @Override
-                            public boolean isValid() {
-                                return Players.getMyPlayer().getAnimation() != -1;
-                            }
-                        },2000);
+        try {
+            SceneObject rock = SceneObjects.getClosest(2093,2092);
+            if(Inventory.getCount(1266) > 0){
+                if(!Inventory.isFull()){
+                    if(rock != null){
+                        if(Players.getMyPlayer().getAnimation() == -1){
+                            rock.interact(0);
+                            Time.sleep(new SleepCondition() {
+                                @Override
+                                public boolean isValid() {
+                                    return Players.getMyPlayer().getAnimation() != -1;
+                                }
+                            },2000);
+                        }
                     }
+                }else{
+                    jailer[0].interact(0);
+
+                    Time.sleep(new SleepCondition() {
+                        @Override
+                        public boolean isValid() {
+                            return !Inventory.isFull();
+                        }
+                    },5000);
+                    Time.sleep(2500);
                 }
+
             }else{
                 jailer[0].interact(0);
-
                 Time.sleep(new SleepCondition() {
                     @Override
                     public boolean isValid() {
-                        return !Inventory.isFull();
+                        return Inventory.getCount(1266) > 0;
                     }
                 },5000);
-                Time.sleep(2500);
             }
-
-        }else{
-            jailer[0].interact(0);
-            Time.sleep(new SleepCondition() {
-                @Override
-                public boolean isValid() {
-                    return Inventory.getCount(1266) > 0;
-                }
-            },5000);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

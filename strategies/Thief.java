@@ -27,11 +27,6 @@ public class Thief implements Strategy {
     @Override
     public void execute() {
 
-        org.rev317.min.api.wrappers.Character c = Players.getMyPlayer().getInteractingCharacter();
-        if(c != null && c.getIndex() > 0){
-            System.out.println("We are getting interacted by : Index : "+c.getIndex());
-        }
-
         if(switchStalls){
             stall = SceneObjects.getNearest(Stalls.getBestStallID(), Stalls.getNextBestStall());
         }else {

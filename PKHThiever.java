@@ -5,15 +5,9 @@ import org.parabot.environment.scripts.Category;
 import org.parabot.environment.scripts.Script;
 import org.parabot.environment.scripts.ScriptManifest;
 import org.parabot.environment.scripts.framework.Strategy;
-import org.rev317.min.api.events.MessageEvent;
-import org.rev317.min.api.events.listeners.MessageListener;
-import org.rev317.min.api.methods.Skill;
 import thiever.strategies.TeleportToStals;
 import thiever.strategies.Thief;
-import thiever.strategies.randoms.BobsIsland;
-import thiever.strategies.randoms.Jail;
-import thiever.strategies.randoms.OldMan;
-import thiever.strategies.randoms.SandwichLady;
+import thiever.strategies.randoms.*;
 
 import java.util.ArrayList;
 
@@ -32,18 +26,17 @@ import java.util.ArrayList;
         , version = 0.1
         , servers = {"PKHonor"})
 
-    public class PKHThiever extends Script  implements MessageListener{
+    public class PKHThiever extends Script{
 
     ArrayList<Strategy> strategies = new ArrayList<>();
-    private static final int startXP = Skill.THIEVING.getExperience();
-    public static int gainedXP, gainedCash;
 
     @Override
     public boolean onExecute() {
 
         strategies.add(new BobsIsland());
-        strategies.add(new OldMan());
-        strategies.add(new SandwichLady());
+        strategies.add(new InteractingRandoms());
+        strategies.add(new DropRewards());
+        strategies.add(new Genie());
         strategies.add(new Jail());
 
         strategies.add(new TeleportToStals());
@@ -51,15 +44,5 @@ import java.util.ArrayList;
 
         provide(strategies);
         return true;
-    }
-
-    @Override
-    public void messageReceived(MessageEvent message) {
-        System.out.println(message.getMessage());
-        if(message.getMessage().contains("You steal from the")){
-            gainedCash += Integer.parseInt(message.getMessage().split(" ")[7].replace(",",""));
-            gainedXP = Skill.THIEVING.getExperience() - startXP;
-            System.out.println("We Gained : "+gainedXP +"XP and "+gainedCash+"GP");
-        }
     }
 }
