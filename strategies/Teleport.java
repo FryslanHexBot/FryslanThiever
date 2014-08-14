@@ -13,7 +13,7 @@ import org.rev317.min.api.wrappers.Tile;
  * Date: 16-7-2014
  * Time: 16:33
  */
-public class TeleportToStals implements Strategy {
+public class Teleport implements Strategy {
 
 
     @Override

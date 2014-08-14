@@ -5,7 +5,7 @@ import org.parabot.environment.scripts.Category;
 import org.parabot.environment.scripts.Script;
 import org.parabot.environment.scripts.ScriptManifest;
 import org.parabot.environment.scripts.framework.Strategy;
-import thiever.strategies.TeleportToStals;
+import thiever.strategies.Teleport;
 import thiever.strategies.Thief;
 import thiever.strategies.randoms.*;
 
@@ -39,7 +39,7 @@ import java.util.ArrayList;
         strategies.add(new Genie());
         strategies.add(new Jail());
 
-        strategies.add(new TeleportToStals());
+        strategies.add(new Teleport());
         strategies.add(new Thief());
 
         provide(strategies);
