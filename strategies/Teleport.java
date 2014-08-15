@@ -24,7 +24,7 @@ public class Teleport implements Strategy {
     @Override
     public void execute() {
         int openDialogID = Game.getOpenBackDialogId();
-        int dialogID = 2492;
+        final int dialogID = 2492;
 
         if (openDialogID != dialogID) {
             Menu.sendAction(315, 16, 0, 1170, 1);

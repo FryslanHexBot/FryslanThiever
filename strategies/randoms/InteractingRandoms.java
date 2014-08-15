@@ -14,12 +14,12 @@ import org.rev317.min.api.wrappers.Npc;
 public class InteractingRandoms implements Strategy {
 
     private Npc antiRandom;
-    private int[] randoms = {410, 1091, 3117, 3022, 3351, 409};
+    private final int[] RANDOMS = {410, 1091, 3117, 3022, 3351, 409};
 
     @Override
     public boolean activate() {
         try {
-            for (Npc n : Npcs.getNearest(randoms)) {
+            for (Npc n : Npcs.getNearest(RANDOMS)) {
                 if (n.getLocation().distanceTo() < 2) {
                     antiRandom = n;
                     return true;

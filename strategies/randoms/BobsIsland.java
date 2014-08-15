@@ -21,12 +21,12 @@ public class BobsIsland implements Strategy {
 
     private Area bobsIsland = new Area(new Tile(2511, 4765), new Tile(2511, 4790), new Tile(2542, 4790), new Tile(2542, 4765));
     private Npc antiRandom;
-    private int[] randoms = {410, 1091, 3117, 3022, 3351, 409};
+    private final int[] RANDOMS = {410, 1091, 3117, 3022, 3351, 409};
 
     @Override
     public boolean activate() {
         try {
-            for (Npc n : Npcs.getNearest(randoms)) {
+            for (Npc n : Npcs.getNearest(RANDOMS)) {
                 if (n.getLocation().distanceTo() < 2) {
                     antiRandom = n;
                     return true;

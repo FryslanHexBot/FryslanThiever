@@ -12,12 +12,12 @@ import org.rev317.min.api.wrappers.Npc;
  */
 public class Genie implements Strategy {
     private Npc antiRandom;
-    private int[] randoms = {410, 1091, 3117, 3022, 3351, 409};
+    private final int[] RANDOMS = {410, 1091, 3117, 3022, 3351, 409};
 
     @Override
     public boolean activate() {
         try {
-            for (Npc n : Npcs.getNearest(randoms)) {
+            for (Npc n : Npcs.getNearest(RANDOMS)) {
                 if (n.getLocation().distanceTo() < 2) {
                     antiRandom = n;
                     return true;
@@ -32,10 +32,12 @@ public class Genie implements Strategy {
     }
     @Override
     public void execute() {
-        if (antiRandom.getDef().getId() == 3022 || antiRandom.getDef().getId() == 3351 || antiRandom.getDef().getId() == 409) {
-            System.exit(0);
-            System.out.println("A mod called a Genie random onto you.\n" +
-                    "The client was closed to protect your account.");
+        if (antiRandom != null) {
+            if (antiRandom.getDef().getId() == 3022 || antiRandom.getDef().getId() == 3351 || antiRandom.getDef().getId() == 409) {
+                System.exit(0);
+                System.out.println("A mod called a Genie random onto you.\n" +
+                        "The client was closed to protect your account.");
+            }
         }
     }
 }
